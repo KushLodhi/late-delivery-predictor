@@ -1,0 +1,46 @@
+services:
+  # Runs once on fresh clone to generate data, train & tune 4 models, compute SHAP & drift stats
+  trainer:
+    build: .
+    container_name: delhicold-trainer
+    environment:
+      - TRAIN_ROWS=${TRAIN_ROWS:-100000}
+    volumes:
+      - ./models:/app/models
+      - ./data:/app/data
+    command: >
+      python -c "import os, pathlib, subprocess, sys;
+      m = pathlib.Path('/app/models/late_delivery_model.joblib');
+      rows = os.getenv('TRAIN_ROWS', '100000');
+      sys.exit(subprocess.call(['python', '-m', 'src.train', '--rows', rows]) if not m.exists() else 0)"
+
+  api:
+    build: .
+    container_name: delhicold-api
+    depends_on:
+      trainer:
+        condition: service_completed_successfully
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./models:/app/models
+      - ./logs:/app/logs
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    command: ["uvicorn", "app.api:app", "--host", "0.0.0.0", "--port", "8000"]
+
+  ui:
+    build: .
+    container_name: delhicold-ui
+    depends_on:
+      api:
+        condition: service_healthy
+    environment:
+      - API_URL=http://api:8000
+      - PYTHONPATH=/app
+    ports:
+      - "8501:8501"
+    command: ["streamlit", "run", "app/streamlit_app.py", "--server.port=8501", "--server.address=0.0.0.0"]

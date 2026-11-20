@@ -1,0 +1,1 @@
+# Trained model artifacts (late_delivery_model.joblib, model_metadata.json, reference_stats.json, shap_global.json) are written here by `python -m src.train`.

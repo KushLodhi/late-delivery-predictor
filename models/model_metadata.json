@@ -1,0 +1,158 @@
+{
+  "trained_at_utc": "2026-11-20T21:44:54.498113+00:00",
+  "dataset_rows": 1500000,
+  "split_sizes": {
+    "train": 1050000,
+    "val": 225000,
+    "test": 225000
+  },
+  "late_rate_train": 0.2027,
+  "late_rate_test": 0.2063,
+  "best_model_family": "xgboost",
+  "best_params": {
+    "subsample": 0.75,
+    "n_estimators": 150,
+    "min_child_weight": 1,
+    "max_depth": 4,
+    "learning_rate": 0.06,
+    "colsample_bytree": 0.75
+  },
+  "leaderboard_val": {
+    "baseline_dummy": {
+      "pr_auc": 0.2018,
+      "roc_auc": 0.5009,
+      "f1_at_050": 0.2037,
+      "precision_at_050": 0.2029,
+      "recall_at_050": 0.2046
+    },
+    "logistic_regression": {
+      "pr_auc": 0.584,
+      "roc_auc": 0.8095,
+      "f1_at_050": 0.529,
+      "precision_at_050": 0.4192,
+      "recall_at_050": 0.7167,
+      "train_seconds": 7.98
+    },
+    "random_forest": {
+      "pr_auc": 0.5758,
+      "roc_auc": 0.8088,
+      "f1_at_050": 0.5367,
+      "precision_at_050": 0.4426,
+      "recall_at_050": 0.6816,
+      "train_seconds": 36.53
+    },
+    "xgboost": {
+      "pr_auc": 0.5885,
+      "roc_auc": 0.8133,
+      "f1_at_050": 0.5369,
+      "precision_at_050": 0.434,
+      "recall_at_050": 0.7038,
+      "train_seconds": 40.31
+    },
+    "lightgbm": {
+      "pr_auc": 0.5879,
+      "roc_auc": 0.813,
+      "f1_at_050": 0.537,
+      "precision_at_050": 0.4334,
+      "recall_at_050": 0.7057,
+      "train_seconds": 200.65
+    }
+  },
+  "baseline_test_metrics": {
+    "pr_auc": 0.2057,
+    "roc_auc": 0.4982,
+    "f1_at_050": 0.2018,
+    "precision_at_050": 0.2033,
+    "recall_at_050": 0.2003
+  },
+  "tuned_test_metrics": {
+    "pr_auc": 0.5837,
+    "roc_auc": 0.8048,
+    "f1_at_050": 0.531,
+    "precision_at_050": 0.4276,
+    "recall_at_050": 0.7004
+  },
+  "pr_auc_lift_vs_baseline_pct": 183.76,
+  "meets_20pct_lift_target": true,
+  "optimal_threshold": 0.28,
+  "theoretical_bayes_threshold": 0.08,
+  "cost_matrix_inr": {
+    "cost_fn": 5000.0,
+    "cost_fp": 400.0,
+    "cost_tp": 400.0,
+    "cost_tn": 0.0
+  },
+  "test_cost_at_optimal_threshold": {
+    "threshold": 0.28,
+    "tp": 42466,
+    "fp": 106461,
+    "fn": 3946,
+    "tn": 72127,
+    "precision": 0.2851,
+    "recall": 0.915,
+    "f1": 0.4348,
+    "total_cost_inr": 79300800.0,
+    "cost_per_shipment_inr": 352.45,
+    "do_nothing_cost_inr": 232060000.0,
+    "savings_vs_do_nothing_inr": 152759200.0,
+    "savings_pct_vs_do_nothing": 65.83
+  },
+  "test_cost_at_default_050": {
+    "threshold": 0.5,
+    "tp": 32506,
+    "fp": 43518,
+    "fn": 13906,
+    "tn": 135070,
+    "precision": 0.4276,
+    "recall": 0.7004,
+    "f1": 0.531,
+    "total_cost_inr": 99939600.0,
+    "cost_per_shipment_inr": 444.18,
+    "do_nothing_cost_inr": 232060000.0,
+    "savings_vs_do_nothing_inr": 132120400.0,
+    "savings_pct_vs_do_nothing": 56.93
+  },
+  "top_global_shap_features": [
+    {
+      "feature": "warehouse_dwell_hours",
+      "mean_abs_shap": 0.6312
+    },
+    {
+      "feature": "weather_condition_clear",
+      "mean_abs_shap": 0.3392
+    },
+    {
+      "feature": "is_peak_hour",
+      "mean_abs_shap": 0.26284
+    },
+    {
+      "feature": "route_congestion_index",
+      "mean_abs_shap": 0.17615
+    },
+    {
+      "feature": "dwell_to_transit_ratio",
+      "mean_abs_shap": 0.15554
+    },
+    {
+      "feature": "vehicle_age_years",
+      "mean_abs_shap": 0.13499
+    },
+    {
+      "feature": "weather_condition_heavy_rain_monsoon",
+      "mean_abs_shap": 0.12372
+    },
+    {
+      "feature": "weather_condition_dense_fog",
+      "mean_abs_shap": 0.11578
+    },
+    {
+      "feature": "weather_condition_haze_smog",
+      "mean_abs_shap": 0.10853
+    },
+    {
+      "feature": "vehicle_type_reefer_van_1t",
+      "mean_abs_shap": 0.08955
+    }
+  ],
+  "total_training_seconds": 1374.66
+}
